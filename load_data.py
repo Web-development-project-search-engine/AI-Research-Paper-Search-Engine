@@ -13,6 +13,8 @@ for paper in papers:
 
     paper["cleaned_abstract"] = clean_text(paper["abstract"])
 
+    paper["cleaned_authors"] = clean_text(paper.get("authors", ""))
+
 
 insert_papers(papers)
 

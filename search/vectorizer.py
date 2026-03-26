@@ -15,7 +15,7 @@ class PaperVectorizer:
         documents = []
 
         for paper in self.papers:
-            text = paper["cleaned_title"] + " " + paper["cleaned_abstract"]
+            text = paper["cleaned_title"] + " " + paper["cleaned_abstract"]+""+paper["cleaned_authors"]
             documents.append(text)
 
         # build tfidf matrix

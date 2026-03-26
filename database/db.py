@@ -12,6 +12,9 @@ collection = db["papers"]
 
 
 def insert_papers(papers: list):
+    collection.delete_many({}) 
+    print("Old data deleted")
+    
     if papers:
         collection.insert_many(papers)
 

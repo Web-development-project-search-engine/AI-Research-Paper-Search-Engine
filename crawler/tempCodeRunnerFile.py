@@ -48,8 +48,12 @@ def extract_paper_details(url):
     abstract_tag = soup.find("blockquote", class_="abstract")
     abstract = abstract_tag.text.replace("Abstract:", "").strip() if abstract_tag else "N/A"
 
+    author_tag = soup.find("blockquote", class_="authors")
+    authors = author_tag.text.replace("Authors:", "").strip() if author_tag else "N/A"
+
     print("TITLE: ", title)
     print("ABSTRACT: ", abstract[:250], "...")
+    print("AUTHORS: ", authors)
     print("-"*80)
 
 def crawl():
