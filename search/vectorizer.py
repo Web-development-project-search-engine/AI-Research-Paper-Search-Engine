@@ -1,33 +1,36 @@
-from sklearn.feature_extraction.text import TfidfVectorizer
+from sentence_transformers import SentenceTransformer
 from database.db import get_all_papers
+import numpy as np
 
 class PaperVectorizer:
 
     def __init__(self):
-        self.vectorizer = TfidfVectorizer(stop_words="english")
-        self.tfidf_matrix = None
+        self.model = SentenceTransformer('all-MiniLM-L6-v2')
+        self.embeddings = None
         self.papers = []
 
     def build_index(self):
         # load papers from mongodb
         self.papers = get_all_papers()
 
-        documents = []
 
         for paper in self.papers:
-            text = paper["cleaned_title"] + " " + paper["cleaned_abstract"]+""+paper["cleaned_authors"]
-            documents.append(text)
+            text = (
+                        paper.get("cleaned_title", "") * 3 + " " +
+                        paper.get("cleaned_abstract", "") + " " +
+                        paper.get("cleaned_authors", "")
+                    )
 
-        # build tfidf matrix
-        self.tfidf_matrix = self.vectorizer.fit_transform(documents)
+        # store embeddings
+        self.embeddings = np.array([paper["embedding"] for paper in self.papers])
 
-        print("TF-IDF index built successfully")
+        print("Transformers built successfully")
 
-    def get_matrix(self):
-        return self.tfidf_matrix
+    def encode_query(self, query):
+        return self.model.encode([query])
 
-    def get_vectorizer(self):
-        return self.vectorizer
+    def get_embeddings(self):
+        return self.embeddings
 
     def get_papers(self):
         return self.papers

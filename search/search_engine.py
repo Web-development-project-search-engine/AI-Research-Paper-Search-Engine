@@ -1,6 +1,5 @@
-from database.db import get_all_papers
+from sklearn.metrics.pairwise import cosine_similarity
 from search.vectorizer import PaperVectorizer
-from search.similarity import compute_similarity
 
 class SearchEngine:
 
@@ -10,19 +9,20 @@ class SearchEngine:
 
     def search(self, query, top_k=5):
 
-        vectorizer = self.vectorizer.get_vectorizer()
-        tfidf_matrix = self.vectorizer.get_matrix()
+        embeddings = self.vectorizer.get_embeddings()
         papers = self.vectorizer.get_papers()
 
-        query_vector = vectorizer.transform([query])
+        query_vector = self.vectorizer.encode_query(query)
 
-        similarity = compute_similarity(query_vector, tfidf_matrix)
+        similarity = cosine_similarity(query_vector, embeddings)
 
         ranked_indices = similarity.argsort()[0][::-1]
+
+        print("Top indices:", ranked_indices[:top_k])
 
         results = []
 
         for i in ranked_indices[:top_k]:
-            results.append(papers[i])
+            results.append(papers[i]) 
 
         return results
