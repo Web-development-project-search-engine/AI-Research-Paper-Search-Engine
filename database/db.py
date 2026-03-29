@@ -12,11 +12,14 @@ collection = db["papers"]
 
 
 def insert_papers(papers: list):
-    collection.delete_many({}) 
-    print("Old data deleted")
+    for paper in papers:
+        collection.update_one(
+            {"id": paper["id"]},   # match by unique id
+            {"$set": paper},
+            upsert=True
+        )
     
-    if papers:
-        collection.insert_many(papers)
+    print("Papers inserted/updated successfully")
 
 
 def get_all_papers():

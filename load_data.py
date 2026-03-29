@@ -1,11 +1,11 @@
-import json
 from preprocessing.clean_text import clean_text
 from database.db import insert_papers
 from sentence_transformers import SentenceTransformer
+from crawler.api_crawler import fetch_papers
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
-with open("papers.json", "r", encoding="utf-8") as f:
-    papers = json.load(f)
+
+papers = fetch_papers()   # ✅ API instead of JSON
 
 for paper in papers:
 
@@ -19,12 +19,9 @@ for paper in papers:
         paper["cleaned_authors"]
     )
 
-    # Generate Embeddings
     embedding = model.encode(combined_text)
-
-    # Store embeddings in DB (Converting into list)
     paper["embedding"] = embedding.tolist()
 
 insert_papers(papers)
 
-print("All cleaned papers stored in MongoDB successfully!")
+print("All papers stored in MongoDB successfully!")

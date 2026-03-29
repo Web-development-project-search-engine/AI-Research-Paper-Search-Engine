@@ -1,28 +1,35 @@
 from sklearn.metrics.pairwise import cosine_similarity
-from search.vectorizer import PaperVectorizer
+from search.transformer import PaperTransformer
 
 class SearchEngine:
 
     def __init__(self):
-        self.vectorizer = PaperVectorizer()
+        self.vectorizer = PaperTransformer()
         self.vectorizer.build_index()
 
-    def search(self, query, top_k=5):
+    def search(self, query, top_k=10, year=None, category=None):
 
         embeddings = self.vectorizer.get_embeddings()
         papers = self.vectorizer.get_papers()
 
         query_vector = self.vectorizer.encode_query(query)
 
-        similarity = cosine_similarity(query_vector, embeddings)
+        similarity = cosine_similarity(query_vector, embeddings)[0]
 
-        ranked_indices = similarity.argsort()[0][::-1]
+        # Pair each paper with its similarity score
+        scored_papers = list(zip(similarity, papers))
 
-        print("Top indices:", ranked_indices[:top_k])
+        # 🔥 Apply filters (NEW)
+        if year:
+            scored_papers = [p for p in scored_papers if p[1].get("year") == str(year)]
 
-        results = []
+        if category:
+            scored_papers = [p for p in scored_papers if p[1].get("category") == category]
 
-        for i in ranked_indices[:top_k]:
-            results.append(papers[i]) 
+        # Sort by similarity score (descending)
+        scored_papers.sort(key=lambda x: x[0], reverse=True)
+
+        # Get top results
+        results = [paper for _, paper in scored_papers[:top_k]]
 
         return results
