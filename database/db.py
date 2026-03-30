@@ -3,8 +3,8 @@ from dotenv import load_dotenv
 import os
 
 load_dotenv()
-MONGO_URL = os.getenv("MONGO_URL")
-client = MongoClient(MONGO_URL)
+MONGO_URI = os.getenv("MONGO_URI")
+client = MongoClient(MONGO_URI)
 
 db = client["research_search"]
 
