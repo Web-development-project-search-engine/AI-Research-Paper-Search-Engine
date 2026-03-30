@@ -5,21 +5,27 @@ from crawler.api_crawler import fetch_papers
 
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
-papers = fetch_papers()   # ✅ API instead of JSON
+papers = fetch_papers()
+
+if not papers:
+    print("No papers fetched from API")
+    exit()
 
 for paper in papers:
 
-    paper["cleaned_title"] = clean_text(paper["title"])
-    paper["cleaned_abstract"] = clean_text(paper["abstract"])
-    paper["cleaned_authors"] = clean_text(paper.get("authors", ""))
+    title = clean_text(paper.get("title", ""))
+    abstract = clean_text(paper.get("abstract", ""))
+    authors = clean_text(paper.get("authors", ""))
 
-    combined_text = (
-        paper["cleaned_title"] * 3 + " " +
-        paper["cleaned_abstract"] + " " +
-        paper["cleaned_authors"]
-    )
+    combined_text = f"{title} {abstract} {authors}"
 
-    embedding = model.encode(combined_text)
+    # 🔥 IMPORTANT FIX: force list output for consistency
+    embedding = model.encode([combined_text])[0]
+
+    paper["cleaned_title"] = title
+    paper["cleaned_abstract"] = abstract
+    paper["cleaned_authors"] = authors
+
     paper["embedding"] = embedding.tolist()
 
 insert_papers(papers)
