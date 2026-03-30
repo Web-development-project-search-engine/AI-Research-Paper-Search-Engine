@@ -44,6 +44,8 @@ def fetch_papers(category="cs.AI", max_results=100, start=0):
 if __name__ == "__main__":
     papers = fetch_papers()
 
+    print("Total papers fetched:", len(papers))
+
     for p in papers[:3]:  # print first 3
         print("\nTitle:", p["title"])
         print("Year:", p["year"])

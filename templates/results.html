@@ -239,6 +239,8 @@ function displayResults(results) {
 
             <p><b>Authors:</b> ${escapeHtml(paper.authors || "Unknown")}</p>
 
+            <p><b>Year:</b> ${paper.year || "N/A"}</p>
+           
             <div>
                 ${subjects.map(s => 
                     `<span class="tag">${escapeHtml(s.trim())}</span>`

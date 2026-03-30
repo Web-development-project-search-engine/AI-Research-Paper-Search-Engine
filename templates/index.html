@@ -338,7 +338,10 @@
         <div class="content-wrapper">
             <div class="left-section">
                 <h1>Find papers by <span class="highlight">meaning</span>, not just keywords</h1>
-                <p class="description">Search research across AI, robotics, healthcare, data science, and more. Our engine ranks papers using vector-based similarity so relevant work surfaces faster.</p>
+                <p class="description">
+                    Search research papers using AI-powered semantic understanding. 
+                    Our system fetches real-time data from arXiv and ranks results based on meaning, not just keywords.
+                </p>
 
                 <div class="search-box-wrapper">
                     <form class="search-form" id="searchForm" action="/results" method="GET">
@@ -396,9 +399,9 @@
                     <div class="how-it-works">
                         <h3>How it works</h3>
                         <ul>
-                            <li>Crawls academic paper sources</li>
-                            <li>Converts paper text into TF-IDF vectors</li>
-                            <li>Uses cosine similarity for ranking</li>
+                            <li>Fetches papers using arXiv API</li>
+                            <li>Converts text into transformer embeddings</li>
+                            <li>Uses semantic similarity for ranking</li>
                             <li>Returns contextually relevant results</li>
                         </ul>
                     </div>

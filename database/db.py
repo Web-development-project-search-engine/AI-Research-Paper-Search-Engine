@@ -12,15 +12,12 @@ collection = db["papers"]
 
 
 def insert_papers(papers: list):
-    for paper in papers:
-        collection.update_one(
-            {"id": paper["id"]},   # match by unique id
-            {"$set": paper},
-            upsert=True
-        )
-    
-    print("Papers inserted/updated successfully")
+    collection.delete_many({})
 
+    if papers:
+        collection.insert_many(papers)
+
+    print("Fresh data inserted")
 
 def get_all_papers():
     papers = list(collection.find({}, {"_id": 0}))
