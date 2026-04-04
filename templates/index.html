@@ -25,7 +25,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
             min-height: 100vh;
             color: var(--text-dark);
         }
@@ -100,16 +100,6 @@
 
         .left-section {
             color: white;
-        }
-
-        .ai-badge {
-            display: inline-block;
-            background: rgba(255, 255, 255, 0.2);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
-            font-weight: 500;
         }
 
         h1 {
@@ -399,7 +389,7 @@
                     <div class="how-it-works">
                         <h3>How it works</h3>
                         <ul>
-                            <li>Fetches papers using arXiv API</li>
+                            <li>Fetches papers using APIs</li>
                             <li>Converts text into transformer embeddings</li>
                             <li>Uses semantic similarity for ranking</li>
                             <li>Returns contextually relevant results</li>
@@ -416,9 +406,8 @@
         const loading = document.getElementById("loading");
         const errorMessage = document.getElementById("errorMessage");
 
-        // Handle form submit
         form.addEventListener("submit", function (e) {
-            e.preventDefault(); // stop default POST
+            e.preventDefault();
 
             const query = input.value.trim();
 
@@ -427,15 +416,12 @@
                 return;
             }
 
-            // show loading
             loading.style.display = "block";
             errorMessage.textContent = "";
 
-            // redirect to results page
             window.location.href = `/results?query=${encodeURIComponent(query)}`;
         });
 
-        // Handle tag clicks
         function searchTag(tag) {
             window.location.href = `/results?query=${encodeURIComponent(tag)}`;
         }

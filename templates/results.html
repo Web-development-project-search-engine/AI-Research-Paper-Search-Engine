@@ -4,24 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Search Results - Find The Paper</title>
+
 <style>
 body {
     font-family: 'Segoe UI', Tahoma, sans-serif;
-    background: linear-gradient(135deg, #e0f2fe, #eef2ff, #fff7ed);
+    background: linear-gradient(135deg, #0f172a, #1e3a8a);
     margin: 0;
     color: #1f2937;
 }
 
 /* HEADER */
 header {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(12px);
-    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 15px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-    border-bottom: 2px solid #e0e7ff;
 }
 
 /* SEARCH BAR */
@@ -32,121 +32,105 @@ header {
 
 .search-bar input {
     padding: 10px 14px;
-    border-radius: 10px;
+    border-radius: 8px;
     border: 1px solid #cbd5f5;
-    width: 320px;
+    width: 340px;
     outline: none;
-    transition: 0.3s;
+    font-size: 20px;
     background: #f9fafb;
 }
 
-.search-bar input:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59,130,246,0.25);
-}
-
-/* COLORFUL BUTTON */
 .search-bar button {
-    padding: 10px 18px;
+    padding: 10px 16px;
     border: none;
-    background: linear-gradient(135deg, #f97316, #facc15);
+    font-size: 20px;
+    background: #2563eb;
     color: white;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: 600;
-    transition: 0.3s;
-}
-
-.search-bar button:hover {
-    transform: scale(1.07);
-    box-shadow: 0 6px 18px rgba(249,115,22,0.4);
 }
 
 /* CONTAINER */
 .container {
-    max-width: 900px;
-    margin: auto;
+    max-width: 2200px;
+    width: 90%;
+    margin: 0 auto;
     padding: 30px 20px;
 }
 
 /* RESULT CARD */
 .result-item {
     background: white;
-    border-radius: 14px;
-    padding: 22px;
-    margin-bottom: 20px;
-    border-left: 6px solid transparent;
-    border-image: linear-gradient(180deg, #3b82f6, #f97316) 1;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.06);
-    transition: 0.3s;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    transition: 0.2s;
+    font-size: 24px;
 }
 
 .result-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    transform: translateY(-3px);
 }
 
-/* TITLE */
+/* 🔥 TITLE (UPDATED) */
 .result-title {
-    font-size: 20px;
-    font-weight: 600;
-    color: #2563eb;
-    cursor: pointer;
+    font-size: 22px;          /* bigger */
+    font-weight: 700;         /* bold */
+    color: #2563eb;           /* brighter blue */
+    text-decoration: none;
 }
 
 .result-title:hover {
-    color: #ea580c;
+    color: #1d4ed8;
     text-decoration: underline;
+}
+
+/* ABSTRACT */
+.abstract {
+    font-size: 18px;
+    color: #475569;
+    margin: 8px 0;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* META */
+.meta {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 6px;
 }
 
 /* TAGS */
 .tag {
     display: inline-block;
-    padding: 6px 12px;
+    padding: 4px 10px;
     margin: 4px 4px 0 0;
     border-radius: 999px;
-    font-size: 12px;
-    font-weight: 600;
-    color: white;
+    font-size: 11px;
+    background: #e0e7ff;
+    color: #1e3a8a;
+    font-weight: 500;
 }
 
-/* MULTI-COLOR TAG SYSTEM */
-.tag:nth-child(1) { background: #3b82f6; } /* blue */
-.tag:nth-child(2) { background: #6366f1; } /* indigo */
-.tag:nth-child(3) { background: #10b981; } /* green */
-.tag:nth-child(4) { background: #f59e0b; } /* yellow */
-.tag:nth-child(5) { background: #f97316; } /* orange */
-.tag:nth-child(6) { background: #ef4444; } /* red */
-
-/* LINKS */
+/* 🔥 LINKS (UPDATED) */
 .links {
-    margin-top: 12px;
+    margin-top: 8px;
 }
 
 .links a {
     margin-right: 15px;
-    font-weight: 500;
+    font-size: 16px;          /* bigger */
+    font-weight: 600;         /* bold */
     text-decoration: none;
-    color: #2563eb;
-    position: relative;
-    transition: 0.2s;
-}
-
-.links a::after {
-    content: "";
-    display: block;
-    height: 2px;
-    width: 0%;
-    background: linear-gradient(90deg, #3b82f6, #f97316);
-    transition: 0.3s;
-}
-
-.links a:hover::after {
-    width: 100%;
+    color: #2563eb;           /* brighter */
 }
 
 .links a:hover {
-    color: #ea580c;
+    color: #1d4ed8;
+    text-decoration: underline;
 }
 </style>
 </head>
@@ -156,16 +140,14 @@ header {
 <header>
     <h2>Find The Paper</h2>
 
-    <!-- 🔥 SEARCH BAR -->
     <form id="searchBar" class="search-bar">
         <input type="text" id="searchInput" placeholder="Search papers again...">
         <button type="submit">Search</button>
     </form>
-
 </header>
 
 <div class="container">
-    <h2 id="resultsTitle">Results</h2>
+    <h2 id="resultsTitle" style="color:white;">Results</h2>
     <div id="resultsContainer">Loading...</div>
 </div>
 
@@ -173,15 +155,13 @@ header {
 const urlParams = new URLSearchParams(window.location.search);
 const query = urlParams.get('query') || '';
 
-// Title
 if (query) {
     document.getElementById('resultsTitle').textContent = `Results for "${query}"`;
 }
 
-// 🔥 LOAD RESULTS
 async function loadResults() {
 
-    document.getElementById('resultsContainer').innerHTML = "<p>Loading...</p>";
+    document.getElementById('resultsContainer').innerHTML = "<p style='color:white;'>Loading...</p>";
 
     try {
         const response = await fetch('/search', {
@@ -191,28 +171,25 @@ async function loadResults() {
         });
 
         const data = await response.json();
-        console.log("Received:", data);
 
         if (data && data.papers) {
             displayResults(data.papers);
         } else {
             document.getElementById('resultsContainer').innerHTML =
-                "<h3>No data received</h3>";
+                "<h3 style='color:white;'>No data received</h3>";
         }
 
     } catch (error) {
-        console.error(error);
         document.getElementById('resultsContainer').innerHTML =
-            "<h3>Something went wrong 😢</h3>";
+            "<h3 style='color:white;'>Something went wrong 😢</h3>";
     }
 }
 
-// 🔥 DISPLAY RESULTS
 function displayResults(results) {
     const container = document.getElementById('resultsContainer');
 
     if (!results || results.length === 0) {
-        container.innerHTML = "<h3>No results found 😢</h3>";
+        container.innerHTML = "<h3 style='color:white;'>No results found 😢</h3>";
         return;
     }
 
@@ -220,7 +197,6 @@ function displayResults(results) {
 
     results.forEach(paper => {
 
-        // FIX: subjects may be string → convert to array
         let subjects = [];
         if (typeof paper.subjects === "string") {
             subjects = paper.subjects.split(';');
@@ -235,11 +211,14 @@ function displayResults(results) {
                 ${escapeHtml(paper.title)}
             </a>
 
-            <p>${escapeHtml(paper.abstract || "No abstract available")}</p>
+            <p class="abstract">
+                ${escapeHtml(paper.abstract || "No abstract available")}
+            </p>
 
-            <p><b>Authors:</b> ${escapeHtml(paper.authors || "Unknown")}</p>
-
-            <p><b>Year:</b> ${paper.year || "N/A"}</p>
+            <div class="meta">
+                <b>Authors:</b> ${escapeHtml(paper.authors || "Unknown")} |
+                <b>Year:</b> ${paper.year || "N/A"}
+            </div>
            
             <div>
                 ${subjects.map(s => 
@@ -248,11 +227,8 @@ function displayResults(results) {
             </div>
 
             <div class="links">
-                <a href="${paper.url}" target="_blank">🔗 Open Paper</a>
-
-                ${paper.pdf_link !== "N/A" ? `
-                    <a href="${paper.pdf_link}" target="_blank">📄 PDF</a>
-                ` : ""}
+                <a href="${paper.url}" target="_blank">Open</a>
+                ${paper.pdf_link !== "N/A" ? `<a href="${paper.pdf_link}" target="_blank">PDF</a>` : ""}
             </div>
 
         </div>
@@ -262,7 +238,6 @@ function displayResults(results) {
     container.innerHTML = html;
 }
 
-// 🔥 SEARCH AGAIN (TOP BAR)
 document.getElementById("searchBar").addEventListener("submit", function(e){
     e.preventDefault();
     const newQuery = document.getElementById("searchInput").value.trim();
@@ -272,20 +247,18 @@ document.getElementById("searchBar").addEventListener("submit", function(e){
     }
 });
 
-// ESCAPE
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
 }
 
-// LOAD
 window.onload = function () {
     if (query) {
         loadResults();
     } else {
         document.getElementById('resultsContainer').innerHTML =
-            "<h2>No query provided</h2>";
+            "<h2 style='color:white;'>No query provided</h2>";
     }
 };
 </script>
