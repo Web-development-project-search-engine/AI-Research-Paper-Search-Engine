@@ -41,8 +41,7 @@ AI-Research-Paper-Search-Engine/
 ├── load_data.py                # Fetch + preprocess + embedding storage
 │
 ├── crawler/
-│   ├── arxiv_crawler.py        # Fetch papers from arXiv API
-│   └── openalex_crawler.py     # Fetch papers from OpenAlex API
+│   ├── api_crawler.py        # Fetch papers from arXiv API
 │
 ├── database/
 │   └── db.py                   # MongoDB connection and operations
