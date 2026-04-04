@@ -1,32 +1,34 @@
 # 🧠 AI Research Paper Search Engine
 
-A semantic search engine for research papers powered by transformer-based embeddings. This project enables users to search research papers using natural language queries and retrieves the most relevant results based on meaning rather than exact keyword matches.
+An intelligent research paper search engine that uses transformer-based semantic search to retrieve relevant academic papers from multiple open-access sources. The system understands the meaning of queries and returns contextually relevant results instead of relying only on keyword matching.
 
 ---
 
 ## 🚀 Features
 
 * 🔍 **Semantic Search** using transformer models (MiniLM)
-* 🧠 **Context-aware retrieval** (understands meaning, not just keywords)
+* 🌐 **Multi-source integration** (arXiv API)
+* 🧠 **Context-aware retrieval** (understands intent, not just keywords)
 * ⚡ **Fast search** using precomputed embeddings
 * 🗄️ **MongoDB Atlas integration** for scalable storage
-* 🧹 **Optimized preprocessing** tailored for transformer models
-* 🧑‍🔬 Search based on **title, abstract, and authors**
+* 🧹 **Optimized preprocessing** for transformer models
+* 🧑‍🔬 Search across **title, abstract, and authors**
 * 📊 Ranked results using **cosine similarity**
+* 📚 Includes **citation data** (from OpenAlex)
 
 ---
 
 ## 🧠 How It Works
 
-1. Research papers are collected and stored in JSON format.
-2. Text fields (title, abstract, authors) are cleaned using light preprocessing.
-3. A transformer model converts each paper into a numerical vector (embedding).
-4. These embeddings are stored in the database.
+1. Research papers are fetched from APIs (arXiv and OpenAlex).
+2. Text fields (title, abstract, authors) are cleaned and preprocessed.
+3. A transformer model converts each paper into embeddings (vectors).
+4. Embeddings and metadata are stored in MongoDB.
 5. When a user enters a query:
 
    * The query is converted into an embedding
-   * Cosine similarity is computed against stored embeddings
-   * Top matching papers are returned
+   * Cosine similarity is computed with stored embeddings
+   * Top relevant papers are retrieved and displayed
 
 ---
 
@@ -35,23 +37,27 @@ A semantic search engine for research papers powered by transformer-based embedd
 ```
 AI-Research-Paper-Search-Engine/
 │
-├── app.py                  # Flask app (entry point)
-├── load_data.py            # Data preprocessing & embedding storage
+├── app.py                      # Flask app (entry point)
+├── load_data.py                # Fetch + preprocess + embedding storage
+│
+├── crawler/
+│   ├── arxiv_crawler.py        # Fetch papers from arXiv API
+│   └── openalex_crawler.py     # Fetch papers from OpenAlex API
 │
 ├── database/
-│   └── db.py               # MongoDB connection and operations
+│   └── db.py                   # MongoDB connection and operations
 │
 ├── preprocessing/
-│   └── clean_text.py       # Text cleaning logic
+│   └── clean_text.py           # Text cleaning logic
 │
 ├── search/
-│   ├── vectorizer.py       # Loads embeddings from DB
-│   ├── search_engine.py    # Core search logic
-│   └── similarity.py       # Cosine similarity (optional)
+│   ├── transformer.py          # Embedding model handling
+│   ├── search_engine.py        # Core search logic
+│   └── similarity.py           # Cosine similarity
 │
-├── templates/              # HTML templates (UI)
-├── static/                 # CSS / JS files
-├── papers.json             # Dataset
+├── templates/                  # HTML templates (UI)
+├── static/                     # CSS / JS files
+├── requirements.txt            # Dependencies
 └── README.md
 ```
 
@@ -62,6 +68,7 @@ AI-Research-Paper-Search-Engine/
 * **Backend:** Python, Flask
 * **Machine Learning:** Sentence Transformers (MiniLM)
 * **Database:** MongoDB Atlas
+* **APIs:** arXiv API, OpenAlex API
 * **Frontend:** HTML, CSS
 * **Libraries:** NumPy, Scikit-learn
 
@@ -71,8 +78,8 @@ AI-Research-Paper-Search-Engine/
 
 * **Model:** all-MiniLM-L6-v2
 * **Type:** Transformer-based sentence embedding model
-* **Output:** 384-dimensional vector representations
-* **Purpose:** Capture semantic meaning of text
+* **Output:** 384-dimensional vector embeddings
+* **Purpose:** Capture semantic meaning of text for similarity search
 
 ---
 
@@ -114,7 +121,7 @@ MONGO_URI=your_mongodb_connection_string
 
 ---
 
-### 5️⃣ Load Data into MongoDB
+### 5️⃣ Load Data (APIs → DB)
 
 ```
 python load_data.py
@@ -138,11 +145,12 @@ http://127.0.0.1:5000
 
 ---
 
-## 📊 Example Query
+## 📊 Example Queries
 
 * "AI in healthcare"
 * "natural language processing transformers"
-* "robotics reinforcement learning"
+* "reinforcement learning robotics"
+* "deep learning for image classification"
 
 ---
 
@@ -154,6 +162,7 @@ http://127.0.0.1:5000
 | Semantic Understanding | ❌      | ✅            |
 | Context Awareness      | ❌      | ✅            |
 | Synonym Handling       | ❌      | ✅            |
+| Multi-source Data      | ❌      | ✅            |
 
 ---
 
@@ -163,7 +172,8 @@ http://127.0.0.1:5000
 * 📈 Display similarity scores in UI
 * 🎯 Filtering by author/year/category
 * 🚀 MongoDB vector search integration
-* 🌐 Deployment
+* 🌐 Cloud deployment (AWS / Render / Railway)
+* 🤖 Research paper summarization
 
 ---
 
@@ -176,7 +186,7 @@ http://127.0.0.1:5000
 
 ## 🤝 Contributing
 
-Feel free to fork the repository and submit pull requests for improvements!
+Feel free to fork the repository and submit pull requests for improvements.
 
 ---
 
@@ -184,6 +194,7 @@ Feel free to fork the repository and submit pull requests for improvements!
 
 * Hugging Face Sentence Transformers
 * MongoDB Atlas
-* arXiv dataset for research papers
+* arXiv API
+* OpenAlex API
 
 ---
