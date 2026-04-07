@@ -14,13 +14,12 @@ An intelligent research paper search engine that uses transformer-based semantic
 * 🧹 **Optimized preprocessing** for transformer models
 * 🧑‍🔬 Search across **title, abstract, and authors**
 * 📊 Ranked results using **cosine similarity**
-* 📚 Includes **citation data** (from OpenAlex)
 
 ---
 
 ## 🧠 How It Works
 
-1. Research papers are fetched from APIs (arXiv and OpenAlex).
+1. Research papers are fetched from APIs (arXiv).
 2. Text fields (title, abstract, authors) are cleaned and preprocessed.
 3. A transformer model converts each paper into embeddings (vectors).
 4. Embeddings and metadata are stored in MongoDB.
@@ -67,8 +66,8 @@ AI-Research-Paper-Search-Engine/
 * **Backend:** Python, Flask
 * **Machine Learning:** Sentence Transformers (MiniLM)
 * **Database:** MongoDB Atlas
-* **APIs:** arXiv API, OpenAlex API
-* **Frontend:** HTML, CSS
+* **APIs:** arXiv API
+* **Frontend:** HTML, CSS, Java Script
 * **Libraries:** NumPy, Scikit-learn
 
 ---
@@ -194,6 +193,5 @@ Feel free to fork the repository and submit pull requests for improvements.
 * Hugging Face Sentence Transformers
 * MongoDB Atlas
 * arXiv API
-* OpenAlex API
 
 ---
