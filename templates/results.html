@@ -159,6 +159,10 @@ a:hover {
     <a href="/"><h2>Find The Paper</h2></a>
 
     <form id="searchBar" class="search-bar">
+        <select id="searchMode" style="font-size:18px; padding:10px; border-radius:8px;">
+            <option value="semantic">Semantic</option>
+            <option value="author">Author</option>
+        </select>
         <input type="text" id="searchInput" placeholder="Search papers again...">
         <button type="submit">Search</button>
     </form>
@@ -173,6 +177,7 @@ a:hover {
 const urlParams = new URLSearchParams(window.location.search);
 const query = urlParams.get('query') || '';
 const mode = urlParams.get('mode') || 'semantic';
+document.getElementById("searchMode").value = mode;
 
 if (query) {
     document.getElementById('resultsTitle').textContent = 
@@ -269,9 +274,10 @@ function openPaper(id, query) {
 document.getElementById("searchBar").addEventListener("submit", function(e){
     e.preventDefault();
     const newQuery = document.getElementById("searchInput").value.trim();
+    const selectedMode = document.getElementById("searchMode").value;
 
     if(newQuery){
-        window.location.href = `/results?query=${encodeURIComponent(newQuery)}`;
+        window.location.href = `/results?query=${encodeURIComponent(newQuery)}&mode=${selectedMode}`;
     }
 });
 
