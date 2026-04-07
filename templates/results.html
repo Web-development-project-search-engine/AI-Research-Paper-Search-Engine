@@ -173,22 +173,6 @@ a:hover {
     color: #1d4ed8;
 }
 
-.links {
-    margin-top: 8px;
-}
-
-.links a {
-    margin-right: 15px;
-    font-size: 16px;          /* bigger */
-    font-weight: 600;         /* bold */
-    text-decoration: none;
-    color: #2563eb;           /* brighter */
-}
-
-.links a:hover {
-    color: #1d4ed8;
-    text-decoration: underline;
-}
 </style>
 </head>
 
@@ -314,11 +298,6 @@ function displayResults(results) {
                 ${subjects.map(s => 
                     `<span class="tag">${escapeHtml(s.trim())}</span>`
                 ).join('')}
-            </div>
-
-            <div class="links">
-                <a href="${paper.url}" target="_blank">Open</a>
-                ${paper.pdf_link !== "N/A" ? `<a href="${paper.pdf_link}" target="_blank">PDF</a>` : ""}
             </div>
 
         </div>
