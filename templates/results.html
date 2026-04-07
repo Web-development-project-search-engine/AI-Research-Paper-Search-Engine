@@ -133,7 +133,46 @@ a:hover {
     font-weight: 500;
 }
 
-/* 🔥 LINKS (UPDATED) */
+.abstract-container {
+    position: relative;
+}
+
+/* Abstract */
+.abstract {
+    font-size: 18px;
+    color: #475569;
+    margin: 8px 0;
+    line-height: 1.5;
+}
+
+/* Clamp text */
+.abstract.short {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.view-more {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+
+    font-size: 16px;
+    color: #2563eb;
+    font-weight: 500;
+
+    text-decoration: underline; 
+    cursor: pointer;
+
+    background: white;
+    padding-left: 6px;
+}
+
+.view-more:hover {
+    color: #1d4ed8;
+}
+
 .links {
     margin-top: 8px;
 }
@@ -210,6 +249,20 @@ async function loadResults() {
     }
 }
 
+function toggleAbstract(event, id, element) {
+    event.stopPropagation();
+
+    const abs = document.getElementById(`abs-${id}`);
+
+    if (abs.classList.contains("short")) {
+        abs.classList.remove("short");
+        element.textContent = "View Less";
+    } else {
+        abs.classList.add("short");
+        element.textContent = "View More";
+    }
+}
+
 function displayResults(results) {
     const container = document.getElementById('resultsContainer');
 
@@ -240,9 +293,17 @@ function displayResults(results) {
                 Relevance Score: ${paper.score ? (paper.score * 100).toFixed(2) + "%" : "N/A"}
             </div>
 
-            <p class="abstract">
-                ${escapeHtml(paper.abstract || "No abstract available")}
-            </p>
+            <div class="abstract-container">
+
+                <p class="abstract short" id="abs-${paper.id}">
+                    ${escapeHtml(paper.abstract || "No abstract available")}
+                </p>
+
+                <span class="view-more" onclick="toggleAbstract(event, '${paper.id}', this)">
+                    View More
+                </span>
+
+            </div>
 
             <div class="meta">
                 <b>Authors:</b> ${escapeHtml(paper.authors || "Unknown")} |
