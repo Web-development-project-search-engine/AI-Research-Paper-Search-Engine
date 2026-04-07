@@ -30,7 +30,7 @@ def search():
 
         papers = engine.search(query)
 
-        print("Results found:", len(papers))
+        print("First paper: ", papers[0])
 
         # Fix ObjectId
         for paper in papers:

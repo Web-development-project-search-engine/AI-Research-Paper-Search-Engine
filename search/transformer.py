@@ -25,3 +25,13 @@ class PaperTransformer:
 
     def get_papers(self):
         return self.papers
+    
+    def compute_similarity(self, query):
+        query_embedding = self.encode_query(query)[0]
+
+        # cosine similarity
+        scores = np.dot(self.embeddings, query_embeddings) / (
+            np.linalg.norm(self.embeddings, axis=1) * np.linalg.norm(query_embedding)
+        )
+
+        return scores

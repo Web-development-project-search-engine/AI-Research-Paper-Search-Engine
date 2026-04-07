@@ -30,6 +30,10 @@ class SearchEngine:
         scored_papers.sort(key=lambda x: x[0], reverse=True)
 
         # Get top results
-        results = [paper for _, paper in scored_papers[:top_k]]
+        results = []
+        for score, paper in scored_papers[:top_k]:
+            paper_copy = paper.copy()
+            paper_copy["score"] = float(score)
+            results.append(paper_copy)
 
         return results

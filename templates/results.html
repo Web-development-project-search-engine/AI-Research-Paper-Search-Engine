@@ -114,6 +114,13 @@ a:hover {
     margin-bottom: 6px;
 }
 
+.score {
+    font-size: 15px;
+    font-weight: 600;
+    color: #16a34a;
+    margin-top: 5px;
+}
+
 /* TAGS */
 .tag {
     display: inline-block;
@@ -221,6 +228,10 @@ function displayResults(results) {
             <a href="${paper.url}" target="_blank" class="result-title">
                 ${escapeHtml(paper.title)}
             </a>
+
+            <div class="score">
+                Relevance Score: ${paper.score ? (paper.score * 100).toFixed(2) + "%" : "N/A"}
+            </div>
 
             <p class="abstract">
                 ${escapeHtml(paper.abstract || "No abstract available")}
