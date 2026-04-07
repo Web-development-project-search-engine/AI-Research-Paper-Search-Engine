@@ -123,6 +123,14 @@
             line-height: 1.6;
         }
 
+        .search-mode {
+            padding: 0.7rem;
+            border-radius: 8px;
+            border: none;
+            background: #f1f5f9;
+            font-size: 0.9rem;
+        }
+
         .search-box-wrapper {
             background: white;
             border-radius: 12px;
@@ -335,6 +343,10 @@
 
                 <div class="search-box-wrapper">
                     <form class="search-form" id="searchForm" action="/results" method="GET">
+                        <select id="searchMode" class="search-mode">
+                            <option value="semantic">Semantic</option>
+                            <option value="author">Author</option>
+                        </select>
                         <input 
                             type="text" 
                             class="search-input" 
@@ -405,11 +417,12 @@
         const input = document.getElementById("queryInput");
         const loading = document.getElementById("loading");
         const errorMessage = document.getElementById("errorMessage");
-
+        
         form.addEventListener("submit", function (e) {
             e.preventDefault();
-
+            
             const query = input.value.trim();
+            const mode = document.getElementById("searchMode").value;
 
             if (!query) {
                 errorMessage.textContent = "Please enter a search query";
@@ -419,11 +432,11 @@
             loading.style.display = "block";
             errorMessage.textContent = "";
 
-            window.location.href = `/results?query=${encodeURIComponent(query)}`;
+            window.location.href = `/results?query=${encodeURIComponent(query)}&mode=${mode}`;
         });
 
         function searchTag(tag) {
-            window.location.href = `/results?query=${encodeURIComponent(tag)}`;
+            window.location.href = `/results?query=${encodeURIComponent(tag)}&mode=semantic`;
         }
     </script>
 </body>

@@ -30,7 +30,7 @@ class PaperTransformer:
         query_embedding = self.encode_query(query)[0]
 
         # cosine similarity
-        scores = np.dot(self.embeddings, query_embeddings) / (
+        scores = np.dot(self.embeddings, query_embedding) / (
             np.linalg.norm(self.embeddings, axis=1) * np.linalg.norm(query_embedding)
         )
 

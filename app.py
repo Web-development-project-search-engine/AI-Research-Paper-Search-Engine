@@ -22,13 +22,14 @@ def search():
     try:
         data = request.get_json()
         query = data.get("query")
+        mode = data.get("mode", "semantic")  # NEW
 
         print("Query received:", query)
 
         if not query:
             return jsonify({"papers": []})
 
-        papers = engine.search(query)
+        papers = engine.search(query, mode=mode)
 
         print("First paper: ", papers[0])
 

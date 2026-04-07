@@ -172,9 +172,11 @@ a:hover {
 <script>
 const urlParams = new URLSearchParams(window.location.search);
 const query = urlParams.get('query') || '';
+const mode = urlParams.get('mode') || 'semantic';
 
 if (query) {
-    document.getElementById('resultsTitle').textContent = `Results for "${query}"`;
+    document.getElementById('resultsTitle').textContent = 
+        `${mode === "author" ? "Author search" : "Results"} for "${query}"`;
 }
 
 async function loadResults() {
@@ -185,7 +187,7 @@ async function loadResults() {
         const response = await fetch('/search', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ query: query.trim() })
+            body: JSON.stringify({ query: query.trim(), mode: mode }) 
         });
 
         const data = await response.json();

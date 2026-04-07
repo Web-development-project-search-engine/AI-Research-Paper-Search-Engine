@@ -7,10 +7,20 @@ class SearchEngine:
         self.vectorizer = PaperTransformer()
         self.vectorizer.build_index()
 
-    def search(self, query, top_k=10, year=None, category=None):
+    def search(self, query, top_k=10, year=None, category=None, mode="semantic"):
 
         embeddings = self.vectorizer.get_embeddings()
         papers = self.vectorizer.get_papers()
+
+        # 🔹 AUTHOR SEARCH (NEW - added safely)
+        if mode == "author":
+            query_lower = query.lower()
+
+            filtered_papers = [
+                p for p in papers
+                if query_lower in p.get("authors", "").lower()
+            ]
+            return filtered_papers[:top_k]
 
         query_vector = self.vectorizer.encode_query(query)
 
