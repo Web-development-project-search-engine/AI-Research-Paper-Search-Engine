@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{ paper.title }}</title>
+
+<style>
+body {
+    font-family: 'Segoe UI';
+    background: linear-gradient(135deg, #0f172a, #1e3a8a);
+    color: white;
+    padding: 30px;
+}
+
+.container {
+    background: white;
+    color: black;
+    padding: 25px;
+    border-radius: 10px;
+    margin-top: 30px;
+}
+
+h1 {
+    color: #1e3a8a;
+}
+
+.meta {
+    margin: 10px 0;
+    color: #555;
+}
+
+#backBtn {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+iframe {
+    margin-top: 20px;
+    border-radius: 10px;
+    width: 100%;
+    min-height: 500px;
+}
+
+.container p {
+    line-height: 1.6;
+}
+
+h3 {
+    margin-top: 20px;
+}
+
+.go-back:hover {
+    font-size: 19px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+iframe {
+    margin-top: 20px;
+    border-radius: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<a id="backBtn" style="color:white;">⬅ Back to Results</a>
+
+<div class="container">
+
+    <h1>{{ paper.title }}</h1>
+
+    <div class="meta">
+        <b>Authors:</b> {{ paper.authors }} <br>
+        <b>Year:</b> {{ paper.year or "N/A" }}<br>
+        <b>Category:</b> {{ paper.category }}
+    </div>
+
+    <h3>Abstract</h3>
+    <p>{{ paper.abstract }}</p>
+
+    <h3>PDF Preview</h3>
+
+    {% if paper.pdf_link and paper.pdf_link != "N/A" %}
+        <iframe 
+            src="{{ paper.pdf_link }}#toolbar=1" 
+            width="100%" 
+            height="600px">
+        </iframe>
+        <br>
+        <a href="{{ paper.pdf_link }}" target="_blank">
+            📄 Open PDF in new tab
+        </a>
+    {% else %}
+        <p>No PDF available</p>
+    {% endif %}
+
+    <br><br>
+
+    <a href="{{ paper.url }}" target="_blank">🔗 View on arXiv</a>
+
+</div>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const query = params.get("query");
+
+        const backBtn = document.getElementById("backBtn");
+
+        if (query) {
+            backBtn.href = `/results?query=${encodeURIComponent(query)}`;
+        } else {
+            backBtn.href = "/";
+        }
+    </script>
+</body>
+</html>

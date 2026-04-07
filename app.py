@@ -16,6 +16,18 @@ def home():
 def results_page():
     return render_template("results.html")
 
+@app.route("/paper/<paper_id>")
+def paper_details(paper_id):
+    papers = engine.vectorizer.get_papers()
+
+    # MongoDB_id is string now
+    paper = next((p for p in papers if p.get("id") == paper_id), None)
+
+    if not paper:
+        return "Paper not found", 404
+    
+    return render_template("paper_details.html", paper=paper)
+
 
 @app.route("/search", methods=["POST"])
 def search():

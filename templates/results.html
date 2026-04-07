@@ -225,9 +225,9 @@ function displayResults(results) {
         }
 
         html += `
-        <div class="result-item">
+        <div class="result-item" onclick="openPaper('${paper.id}', '${query}')">
 
-            <a href="${paper.url}" target="_blank" class="result-title">
+            <a href="/paper/${paper.id}?query=${encodeURIComponent(query)}" class="result-title">
                 ${escapeHtml(paper.title)}
             </a>
 
@@ -260,6 +260,10 @@ function displayResults(results) {
     });
 
     container.innerHTML = html;
+}
+
+function openPaper(id, query) {
+    window.location.href = `/paper/${id}?query=${encodeURIComponent(query)}`;
 }
 
 document.getElementById("searchBar").addEventListener("submit", function(e){

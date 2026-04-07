@@ -32,7 +32,7 @@ def fetch_papers(category="cs.AI", max_results=100, start=0):
             "year": year,
             "date": published,
             "url": link,
-            "pdf_link": link.replace("/abs/", "/pdf/")
+            "pdf_link": entry_id.replace("abs", "pdf") + ".pdf"
         }
 
         papers.append(paper)
